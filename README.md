@@ -47,6 +47,9 @@ There are various front ends for loading BPF programs into the kernel such as bc
 sudo tc qdisc add dev eth0 clsact
 sudo tc filter add dev eth0 ingress bpf da obj tc-example.o sec ingress
 sudo tc filter add dev eth0 egress bpf da obj tc-example.o sec egress
+
+# to clean up
+sudo tc qdisc del dev eth0 clsact
 ```
 
 ### 1.4 check the result
@@ -59,6 +62,13 @@ filter protocol all pref 49152 bpf chain 0 handle 0x1 tc-example.o:[ingress] dir
 
 # check the print from the trace pipe
 sudo tc exec bpf dbg
+
+# or list the loaded programs
+sudo bpftool prog list
+
+# or 
+sudo bpftool net show
+
 ```
 
 ## More materials
